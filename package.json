@@ -1,0 +1,23 @@
+{
+  "name": "Projeto-testes-de-API-com-Cypress---BarrigaReact",
+  "version": "1.0.0",
+  "description": "Testes de API de uma aplicação real utilizando Cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenHurJF/Projeto-testes-de-API-com-Cypress---BarrigaReact.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenHurJF/Projeto-testes-de-API-com-Cypress---BarrigaReact/issues"
+  },
+  "homepage": "https://github.com/BenHurJF/Projeto-testes-de-API-com-Cypress---BarrigaReact#readme",
+  "dependencies": {
+    "cypress": "^8.6.0"
+  }
+}
