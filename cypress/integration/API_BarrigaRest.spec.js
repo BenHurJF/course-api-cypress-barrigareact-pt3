@@ -7,8 +7,8 @@ describe('Testes de API do Barriga Rect', () => {
 
     it('1- Criando uma conta', () => {
         cy.request({
-            method: 'POST',
             url: 'signin',
+            method: 'POST',
             failOnStatusCode: true,
             body: {
                 email: "beiujeffer@hotmail.com",
@@ -20,8 +20,21 @@ describe('Testes de API do Barriga Rect', () => {
             cy.wrap(response).its('body.id').should('eq', 25541)
             cy.wrap(response).its('body.nome').should('eq', 'Ben-Hur Jeffer')
             cy.wrap(response).its('body.token').should('not.be.empty')
-        }).then(response => {
-             
+        }).then(token => {
+            cy.request({
+            url: 'contas',
+            method: 'POST',
+            failOnStatusCode: true,
+            headers: { Authorization: `JWT ${token}`},
+            body: {
+               nome: "Conta para Teste API"
+            }
+        }).as('responseCriarConta')
+        })
+        cy.get('@responseCriarConta').then(res => {
+            expect(res.status).to.be.equal(201)
+            expect(res.body).to.have.property('id')
+            expect(res.body).to.have.property('nome', 'Conta para Teste API')
         })
     })
 
