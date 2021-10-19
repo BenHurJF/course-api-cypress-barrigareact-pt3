@@ -23,3 +23,24 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('getToken', (user, pass) => {
+    cy.request({
+        url: 'signin',
+        method: 'POST',
+        failOnStatusCode: true,
+        body: {
+            email: user,
+            redirecionar: false,
+            senha: pass
+        }
+    }).then(response => {
+        expect(response.status).to.be.eq(200)
+        cy.wrap(response).its('body.id').should('eq', 25541)
+        cy.wrap(response).its('body.nome').should('eq', 'Ben-Hur Jeffer')
+        cy.wrap(response).its('body.token').should('not.be.empty')
+})
+.then(token => {
+    return token
+})
+})
