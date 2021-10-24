@@ -8,7 +8,13 @@ describe('Testes de API do Barriga Rect', () => {
         .then(token => {
             TOKEN = token
         })
+
+        cy.resetarContas()
     })
+
+    // beforeEach(() => {
+        
+    // })
 
     it('1- Criando uma conta', () => {
             cy.request({

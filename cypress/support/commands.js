@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('getToken', (user, pass) => {
+
     cy.request({
         url: 'signin',
         method: 'POST',
@@ -36,11 +37,21 @@ Cypress.Commands.add('getToken', (user, pass) => {
         }
     }).then(response => {
         expect(response.status).to.be.eq(200)
-        cy.wrap(response).its('body.id').should('eq', 25541)
-        cy.wrap(response).its('body.nome').should('eq', 'Ben-Hur Jeffer')
+        // cy.wrap(response).its('body.id').should('eq', 25541)
+        // cy.wrap(response).its('body.nome').should('eq', 'Ben-Hur Jeffer')
         cy.wrap(response).its('body.token').should('not.be.empty')
 })
 .then(token => {
     return token
+})
+})
+
+Cypress.Commands.add('resetarContas', () => {
+    cy.getToken('beiujeffer@hotmail.com', '91150510').then(TOKEN => {
+    cy.request({
+        method: 'GET',
+        url: 'reset',
+        headers: { Authorization: `JWT ${TOKEN}`}
+    })
 })
 })
