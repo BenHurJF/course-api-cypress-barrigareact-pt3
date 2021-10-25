@@ -1,7 +1,5 @@
 /// <reference types="Cypress" />
 
-const cypress = require("cypress");
-
 describe('Testes de API do Barriga Rect', () => {
     let TOKEN;
 
@@ -78,16 +76,16 @@ describe('Testes de API do Barriga Rect', () => {
 
     it.only('4- criando transação', () => {
         cy.getContaByName('Conta para movimentacoes')
-        .then(contaId => {
-        cy.request({
+            .then(contaId => {
+           cy.request({
             method: 'POST',
             url: 'transacoes',
             // failOnStatusCode: false,
             headers: { Authorization: `JWT ${TOKEN}` },
             body: {
                 conta_id: contaId,
-                data_pagamento: Cypress.moment().add({days: 1}).format('DD/MM/YYYY'),
-                data_transacao: Cypress.moment().format('DD/MM/YYYY'),
+                data_pagamento: '30/10/2021',
+                data_transacao: '25/10/2021',
                 descricao: "TESTE",
                 envolvido: "EU",
                 status: true,
