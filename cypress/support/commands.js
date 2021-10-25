@@ -55,3 +55,18 @@ Cypress.Commands.add('resetarContas', () => {
     })
 })
 })
+
+Cypress.Commands.add('getContaByName', name => {
+    cy.getToken('beiujeffer@hotmail.com', '91150510').then(TOKEN => {
+    cy.request({
+        method: 'GET',
+        url: 'contas',
+        headers: { Authorization: `JWT ${TOKEN}` },
+        qs: {
+            nome: name
+        }
+    }).then(res => {
+        return res.body[0].id
+    })
+    })
+})
