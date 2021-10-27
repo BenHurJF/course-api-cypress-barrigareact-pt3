@@ -117,33 +117,9 @@ describe('Testes de API do Barriga Rect', () => {
             url: 'transacoes',
             qs: { descricao: "Movimentacao 1, calculo saldo" },
             headers: { Authorization: `JWT ${TOKEN}` }
-        }).then(movimentacao => {
-            cy.request({
-                url: `transacoes/${movimentacao.body[0].id}`,
-                method: 'PUT',
-                headers: { Authorization: `JWT ${TOKEN} ` },
-                body: {
-                    status: true,
-                    conta_id: 890968,
-                    data_pagamento: cy.clock(),
-                    data_transacao: cy.clock(),
-                    descricao: movimentacao.body[0].descricao,
-                    envolvido: movimentacao.body[0].envolvido,
-                    valor: movimentacao.body[0].valor
-                }
-            }).its('status').should('be.equal', 200)
-        })
-
-        cy.request({
-            method: 'GET',
-            url: 'saldo',
-            headers: { Authorization: `JWT ${TOKEN}` }
         }).then(res => {
-            let saldoConta = null
-            res.body.forEach(c => {
-                if (c.conta === 'Conta para saldo') saldoConta = c.saldo
-            })
-            expect(saldoConta).to.be.contain('3.500')
+            let validar = res.body[0].valor
+            expect(validar).to.be.equal("3500.00")
         })
-    })
+})
 })
